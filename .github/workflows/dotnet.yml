@@ -1,7 +1,7 @@
 # GitHub Actions workflow to build and deploy both Web and ApiService to Azure Web App with virtual applications
 # WebApp is deployed to root ('/'), ApiService to '/api'
 
-name: Build and Deploy AspireApp V2
+name: Build and Deploy AspireApp V2.1
 
 on:
   push:
@@ -22,16 +22,16 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore AspireApp1.sln  # ✅ match actual filename
+        run: dotnet restore AspireApp.sln  # ✅ match actual filename
 
       - name: Build solution
-        run: dotnet build AspireApp1.sln --configuration Release --no-restore
+        run: dotnet build AspireApp.sln --configuration Release --no-restore
 
       - name: Publish WebApp
-        run: dotnet publish AspireApp1.Web/AspireApp1.Web.csproj --configuration Release --output ./publish/webapp
+        run: dotnet publish AspireApp.Web/AspireApp.Web.csproj --configuration Release --output ./publish/webapp
 
       - name: Publish ApiService
-        run: dotnet publish AspireApp1.ApiService/AspireApp1.ApiService.csproj --configuration Release --output ./publish/webapp/apiservice
+        run: dotnet publish AspireApp.ApiService/AspireApp.ApiService.csproj --configuration Release --output ./publish/webapp/apiservice
 
       - name: Deploy WebApp to root
         uses: azure/webapps-deploy@v3
